@@ -4,10 +4,22 @@ type Product = {
     name: string;
     price: number;
 };
- 
+
+
 function filterAndSortProducts(products: Product[]): Product[] {
-    // Your code goes here
-    return [] 
+
+    const uniqueProducts = products.filter((product: Product, index: number) => {
+        return products.findIndex((p: Product) => p.name === product.name) === index
+    })
+
+    const sortedProducts = uniqueProducts.sort((
+        a: Product,
+        b: Product
+    ) => {
+        return a.price - b.price
+    })
+    return  sortedProducts;
+
 }
 
 module.exports = { filterAndSortProducts }

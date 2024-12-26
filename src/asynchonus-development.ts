@@ -11,14 +11,21 @@
 // { data: { ... }, status: 200 },
 // { data: { ... }, status: 200 }
 // ] 
+import {response} from "express";
+
 type RequestsResult = {
     data: any,
     status: number
 }
 
+import axios from 'axios'
 async function fetchAll(urls: string[]): Promise<RequestsResult[]> {
-    //Your code goes here
-    return [];
+    const fetchPromises = urls.map( async (url)=> {
+        const response = await axios.get(url);
+        return { data:response.data, status:response.status}
+    })
+    return  Promise.all(fetchPromises);
+
 }
 
 module.exports = { fetchAll };
